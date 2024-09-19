@@ -41,23 +41,22 @@ const getState = ({ getStore, getActions, setStore }) => {
 					return false;
 				}
 			},
-			register: async ({ email, password }) => {
+			register: async ({ firstName, lastName, email, password }) => {
 				try {
 					const resp = await fetch(`${process.env.BACKEND_URL}/api/register`, {
 						method: 'POST',
 						headers: {
 							'Content-Type': 'application/json',
 						},
-						body: JSON.stringify({ email, password }),
+						body: JSON.stringify({ firstName, lastName, email, password }),  // Añadimos firstName y lastName
 					});
 					const data = await resp.json();
-
+			
 					if (resp.ok) {
 						const token = data.token;
-
+			
 						setStore({ token: token });
 						localStorage.setItem('token', token);
-						
 					} else {
 						console.log("Registration failed:", data.msg);
 					}

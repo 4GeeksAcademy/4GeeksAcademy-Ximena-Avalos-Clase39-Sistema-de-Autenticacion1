@@ -4,6 +4,8 @@ import { useNavigate } from 'react-router-dom';
 
 const Register = () => {
     const { actions } = useContext(Context);
+    const [firstName, setFirstName] = useState('');
+    const [lastName, setLastName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const navigate = useNavigate();
@@ -11,39 +13,60 @@ const Register = () => {
     const handleRegister = async (e) => {
         e.preventDefault();
         try {
-            await actions.register({ email, password });
-            // Redireciona para a página de login após o registro bem-sucedido
+            await actions.register({ firstName, lastName, email, password });
+            // Redirigir a la página de login después de un registro exitoso
             navigate('/login');
         } catch (error) {
-            // Aqui você pode adicionar lógica para lidar com erros
-            console.error('Erro ao registrar:', error);
+            console.error('Error al registrar:', error);
         }
     };
 
     return (
-        <div>
+        <div className="form-container">
             <h1>Register</h1>
             <form onSubmit={handleRegister}>
-                <div>
-                    <label>Email:</label>
-                    <input
-                        type="email"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                        required
-                    />
-                </div>
-                <div>
-                    <label>Password:</label>
-                    <input
-                        type="password"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                        required
-                    />
-                </div>
-                <button type="submit">Register</button>
-            </form>
+    <div>
+        <label>Nombre:</label>
+        <input
+            type="text"
+            value={firstName}
+            onChange={(e) => setFirstName(e.target.value)}
+            placeholder="Nombre"
+            required
+        />
+    </div>
+    <div>
+        <label>Apellidos:</label>
+        <input
+            type="text"
+            value={lastName}
+            onChange={(e) => setLastName(e.target.value)}
+            placeholder="Apellidos"
+            required
+        />
+    </div>
+    <div>
+        <label>Email:</label>
+        <input
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            placeholder="Email"
+            required
+        />
+    </div>
+    <div>
+        <label>Password:</label>
+        <input
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            placeholder="Password"
+            required
+        />
+    </div>
+    <button type="submit">Register</button>
+</form>
         </div>
     );
 };

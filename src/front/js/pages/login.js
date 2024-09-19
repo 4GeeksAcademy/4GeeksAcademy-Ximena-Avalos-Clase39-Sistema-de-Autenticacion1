@@ -7,36 +7,38 @@ const Login = () => {
     const [password, setPassword] = useState('');
     
     const { actions } = useContext(Context);
-    const navigate = useNavigate();  // Hook para la navegación
+    const navigate = useNavigate();  
 
     const handleLogin = async () => {
         const success = await actions.login({ email: email, password: password });
         if (success) {
-            navigate('/profile');  // Redirigir a la página de perfil si el login es exitoso
+            navigate('/profile');  
         } else {
             alert("Login failed. Please check your credentials.");
         }
     };
 
     return (
-        <div>
+        <div className="form-container">
             <h1>Login</h1>
-            <input 
-                name="email" 
-                value={email} 
-                onChange={(e)=> setEmail(e.target.value)} 
-                placeholder="email" 
-            />
-            <input 
-                name="password" 
-                type="password" 
-                value={password} 
-                onChange={(e)=> setPassword(e.target.value)} 
-                placeholder="password" 
-            />
-            <button onClick={handleLogin}>
-                Entrar
-            </button>
+            <form>
+                <input 
+                    name="email" 
+                    value={email} 
+                    onChange={(e)=> setEmail(e.target.value)} 
+                    placeholder="email" 
+                />
+                <input 
+                    name="password" 
+                    type="password" 
+                    value={password} 
+                    onChange={(e)=> setPassword(e.target.value)} 
+                    placeholder="password" 
+                />
+                <button type="button" onClick={handleLogin}>
+                    Entrar
+                </button>
+            </form>
         </div>
     );
 };
