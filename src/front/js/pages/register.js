@@ -14,7 +14,6 @@ const Register = () => {
         e.preventDefault();
         try {
             await actions.register({ firstName, lastName, email, password });
-            // Redirigir a la página de login después de un registro exitoso
             navigate('/login');
         } catch (error) {
             console.error('Error al registrar:', error);

@@ -48,7 +48,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 						headers: {
 							'Content-Type': 'application/json',
 						},
-						body: JSON.stringify({ firstName, lastName, email, password }),  // Añadimos firstName y lastName
+						body: JSON.stringify({ firstName, lastName, email, password }), 
 					});
 					const data = await resp.json();
 			

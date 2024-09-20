@@ -5,17 +5,17 @@ const Profile = () => {
 
     useEffect(() => {
         const fetchUserData = async () => {
-            const token = localStorage.getItem('token');  // Obtener el token desde el localStorage
+            const token = localStorage.getItem('token');  
             try {
                 const response = await fetch(`${process.env.BACKEND_URL}/api/user`, {
                     method: 'GET',
                     headers: {
-                        'Authorization': `Bearer ${token}`,  // Pasar el token en el header
+                        'Authorization': `Bearer ${token}`,  
                     },
                 });
                 if (response.ok) {
                     const data = await response.json();
-                    setUserData(data.user);  // Guardar los datos del usuario en el estado
+                    setUserData(data.user);  
                 } else {
                     console.log("Error fetching user data:", response.status);
                 }
@@ -25,10 +25,10 @@ const Profile = () => {
         };
 
         fetchUserData();
-    }, []);  // El arreglo vacío asegura que la llamada a la API solo se haga una vez al montar el componente
+    }, []);  
 
     if (!userData) {
-        return <p>Loading...</p>;  // Mostrar un mensaje de carga mientras se obtienen los datos
+        return <p>Loading...</p>;  
     }
 
     return (

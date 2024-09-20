@@ -45,33 +45,27 @@ def get_user():
 
 @api.route('/register', methods=['POST'])
 def register_user():
-    # Obtener los campos de nombre, apellidos, email y contraseña del frontend
     first_name = request.json.get('firstName', None)
     last_name = request.json.get('lastName', None)
     email = request.json.get('email', None)
     password = request.json.get('password', None)
 
-    # Verificar si todos los campos están presentes
     if not first_name or not last_name or not email or not password:
         return jsonify({"msg": "All fields (first name, last name, email, and password) are required"}), 400
 
-    # Verificar si el usuario ya existe
     user_exists = User.query.filter_by(email=email).first()
     if user_exists:
         return jsonify({"msg": "User already exists"}), 400
 
-    # Crear un nuevo usuario con los datos proporcionados
     new_user = User(first_name=first_name, last_name=last_name, email=email, password=password, is_active=True)
     
     try:
-        # Guardar el nuevo usuario en la base de datos
         db.session.add(new_user)
         db.session.commit()
     except Exception as e:
         db.session.rollback()
         return jsonify({"msg": "Failed to add user to the database", "error": str(e)}), 500
 
-    # Serializar el usuario y generar un token de acceso
     user = new_user.serialize()
     token = create_access_token(identity=user['id'])
 
